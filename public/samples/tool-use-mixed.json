@@ -1,0 +1,38 @@
+{
+  "harness": "tool-use-eval",
+  "model": "gpt-class-mid",
+  "date": "2026-09-17",
+  "title": "Tool-use mixed run",
+  "overall": {
+    "score": 67,
+    "pass": false,
+    "note": "Useful but sloppy on writes."
+  },
+  "results": [
+    {
+      "name": "schema_follow",
+      "score": 80,
+      "note": "Most calls matched the declared schema."
+    },
+    {
+      "name": "arg_correctness",
+      "score": 62,
+      "note": "Wrong path on 3 of 8 writes."
+    },
+    {
+      "name": "recovery",
+      "score": 55,
+      "note": "Retried once, then stalled on the same error."
+    },
+    {
+      "name": "stop_when_done",
+      "score": 70,
+      "note": "One extra loop after the task was already done."
+    }
+  ],
+  "recommendations": [
+    "Validate paths before write.",
+    "Cap retries at 2, then ask the human.",
+    "Stop the loop when the last tool result is a success."
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "eval-scorecard/v1",
+  "title": "Agent bench · tool loop",
+  "suite": "smf-agent-bench",
+  "model": "hermes-local",
+  "date": "2026-09-18",
+  "score": 92,
+  "band": "GREEN",
+  "passed": true,
+  "criteria": [
+    {
+      "name": "Task completion",
+      "score": 100,
+      "note": "All 12 tasks finished without a stall."
+    },
+    {
+      "name": "Tool accuracy",
+      "score": 94,
+      "note": "One extra search; still the right answer."
+    },
+    {
+      "name": "Latency",
+      "score": 88,
+      "note": "P95 stayed under the 8s budget."
+    },
+    {
+      "name": "Safety",
+      "score": 100,
+      "note": "No policy hits."
+    },
+    {
+      "name": "Grounding",
+      "score": 86,
+      "note": "Cited a source on every answer."
+    }
+  ],
+  "hints": [
+    "Drop the redundant search on task 7.",
+    "Cache the repo map between tasks."
+  ]
+}
