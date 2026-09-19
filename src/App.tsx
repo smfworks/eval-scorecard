@@ -165,8 +165,8 @@ export default function App() {
     <div className="page">
       <div className="ambient" aria-hidden="true" />
       <Header />
-      <SisterStrip current="eval-scorecard" payload={raw} />
-      <HandoffBanner onPaste={(text) => { setRaw(text); setSampleId(null); }} />
+      <SisterStrip current="eval-scorecard" payload={raw} kind="eval-json" />
+      <HandoffBanner accept={["eval-json", "json", "plain"]} onPaste={(text) => { setRaw(text); setSampleId(null); }} />
       <main className="layout">
         <Composer
           raw={raw}
