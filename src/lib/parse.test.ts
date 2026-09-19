@@ -45,6 +45,8 @@ describe("scoreFromValue", () => {
     assert.equal(scoreFromValue("85%"), 85);
     assert.equal(scoreFromValue("17/20"), 85);
     assert.equal(scoreFromValue(0.92), 92);
+    assert.equal(scoreFromValue(1), 1);
+    assert.equal(scoreFromValue(8), 8);
     assert.equal(scoreFromValue("pass"), 100);
     assert.equal(scoreFromValue("FAIL"), 0);
     assert.equal(scoreFromValue("score: 73"), 73);

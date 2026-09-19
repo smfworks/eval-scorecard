@@ -116,7 +116,7 @@ function parseBandToken(value: unknown): Band | null {
 
 export function scoreFromValue(value: unknown): number | null {
   if (typeof value === "number" && Number.isFinite(value)) {
-    if (value > 0 && value <= 1) return clampScore(value * 100);
+    if (value > 0 && value < 1) return clampScore(value * 100);
     return clampScore(value);
   }
   if (typeof value !== "string") return null;
