@@ -426,7 +426,8 @@ function parseJsonObject(obj: Record<string, unknown>, thresholds: Thresholds, n
   if (canonical) return canonical;
   const wrap = asString(obj.raw) ?? asString(obj.markdown) ?? asString(obj.text) ?? asString(obj.report);
   if (wrap && !pickScore(obj) && !extractCriteria(obj, thresholds).length) {
-    return parseEval(wrap, {}, thresholds, now);
+    const nested = parseEval(wrap, {}, thresholds, now);
+    if (nested) return nested;
   }
   const overall = extractOverall(obj);
   return buildResult({
