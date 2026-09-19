@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/smfworks/eval-scorecard/blob/main/public/schema/eval-scorecard.schema.json",
+  "title": "EvalScorecard",
+  "description": "Heuristic grade card for an eval / judge / harness run. Eval Scorecard prints this. Other tools can emit the same shape.",
+  "$defs": {
+    "Band": {
+      "type": "string",
+      "enum": ["GREEN", "YELLOW", "RED"]
+    },
+    "SourceKind": {
+      "type": "string",
+      "enum": ["json", "markdown", "freeform"]
+    },
+    "Thresholds": {
+      "type": "object",
+      "required": ["green", "yellow"],
+      "additionalProperties": false,
+      "properties": {
+        "green": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Inclusive cutoff. Default 80."
+        },
+        "yellow": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Inclusive cutoff. Default 50. RED is below this."
+        }
+      }
+    },
+    "Criterion": {
+      "type": "object",
+      "required": ["id", "name"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "score": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "max": { "type": ["number", "null"] },
+        "pass": { "type": ["boolean", "null"] },
+        "note": { "type": "string" },
+        "band": { "oneOf": [{ "$ref": "#/$defs/Band" }, { "type": "null" }] }
+      }
+    },
+    "EvalInput": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Loose harness / judge JSON. Common keys are accepted; unknown keys are ignored.",
+      "properties": {
+        "title": { "type": "string" },
+        "suite": { "type": "string" },
+        "harness": { "type": "string" },
+        "eval": { "type": "string" },
+        "model": { "type": "string" },
+        "date": { "type": "string" },
+        "score": { "type": ["number", "string"] },
+        "overall": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "score": { "type": ["number", "string"] },
+            "pass": { "type": ["boolean", "string"] },
+            "note": { "type": "string" }
+          }
+        },
+        "verdict": { "type": "string" },
+        "passed": { "type": ["boolean", "string"] },
+        "band": { "$ref": "#/$defs/Band" },
+        "criteria": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Criterion" }
+        },
+        "checks": { "type": "array" },
+        "results": { "type": "array" },
+        "rubric": { "type": ["object", "array"] },
+        "hints": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "fix_hints": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "recommendations": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "markdown": {
+          "type": "string",
+          "description": "Raw report. When present without scores, the heuristic parser runs on this text."
+        }
+      }
+    },
+    "ScorecardResult": {
+      "type": "object",
+      "required": ["schemaVersion", "score", "band", "criteria", "hints", "heuristic"],
+      "additionalProperties": true,
+      "properties": {
+        "schemaVersion": { "type": "string", "const": "eval-scorecard/v1" },
+        "id": {
+          "type": "string",
+          "pattern": "^ES-[0-9A-F]{4}$",
+          "description": "Card serial printed on the report."
+        },
+        "title": { "type": ["string", "null"] },
+        "suite": { "type": ["string", "null"] },
+        "model": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"] },
+        "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "passed": { "type": ["boolean", "null"] },
+        "band": { "$ref": "#/$defs/Band" },
+        "criteria": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Criterion" }
+        },
+        "hints": {
+          "type": "array",
+          "maxItems": 5,
+          "items": { "type": "string" }
+        },
+        "heuristic": { "type": "boolean", "const": true },
+        "gradedAt": { "type": "string", "format": "date-time" },
+        "summary": { "type": "string" },
+        "sourceKind": { "$ref": "#/$defs/SourceKind" },
+        "thresholds": { "$ref": "#/$defs/Thresholds" }
+      }
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/$defs/EvalInput" },
+    { "$ref": "#/$defs/ScorecardResult" }
+  ]
+}

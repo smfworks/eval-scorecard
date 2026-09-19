@@ -1,0 +1,34 @@
+{
+  "type": "rubric",
+  "title": "Civic essay · week 4",
+  "suite": "writing-lab",
+  "model": "judge-v3",
+  "date": "2026-09-15",
+  "rubric": {
+    "thesis": {
+      "score": 3,
+      "max": 5,
+      "comment": "Clear claim, thin warrant."
+    },
+    "evidence": {
+      "score": 3,
+      "max": 5,
+      "comment": "Two sources; one is outdated."
+    },
+    "organization": {
+      "score": 4,
+      "max": 5,
+      "comment": "Logical path, abrupt close."
+    },
+    "style": {
+      "score": 4,
+      "max": 5,
+      "comment": "Voice is clean."
+    }
+  },
+  "suggestions": [
+    "Add a warrant under the thesis.",
+    "Swap the 2014 cite for a current source.",
+    "Write a real closing paragraph."
+  ]
+}
