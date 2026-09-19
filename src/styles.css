@@ -1063,3 +1063,9 @@ body.shot-og textarea {
     grid-template-columns: 1fr;
   }
 }
+
+
+.handoff-error {
+  color: var(--ember-soft);
+  font-size: 12px;
+}
